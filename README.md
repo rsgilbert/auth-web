@@ -3,6 +3,8 @@
 ## Tailwind setup 
 https://tailwindcss.com/docs/guides/create-react-app
 
+Dont forget to set the content property in tailwind.config.js 
+
 ## Available Scripts
 
 In the project directory, you can run:
