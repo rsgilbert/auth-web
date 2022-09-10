@@ -4,52 +4,56 @@ export const Login = () => {
 
     return (
         <div>
-            <section class="px-6">
-                <div>
-                    <div></div>
+            <section class="px-6 max-w-sm m-[auto]">
+                <div className='py-5'>
+                    <h1 className="text-xl font-bold text-center">Login</h1>
+
                     <div>
                         <form>
-                            <div>
-                                <p className='underline font-bold text-red'>Sign in with</p>
-                                <button>Facebook (svg)</button>
-                            </div>
-                            <div>
-                                <p>Or</p>
-                            </div>
-
                             {/* email input */}
-                            <div className="mb-6">
-                                <input 
-                                    type="text"
-                                    placeholder='Email address'
-                                    className='form-control block w-full px-2'
-                                    />
-                            </div>
+                            <InputBox
+                                label="Email"
+                                type="text"
+                            />
 
                             {/* Password input */}
-                            <div className='mb-6'>
-                                <input
-                                    type="password"
-                                    placeholder='Password'
-                                    />
-                            </div>
+                            <InputBox
+                                label="Password"
+                                type="password"
+                            />
 
-                            <div>
-                                <a href="#">Forgot Password</a>
-                            </div>
+                            <a href="#" className="text-blue-800">Forgot Password?</a>
 
-                            <div>
-                                <button>
+
+                            <div className="lg:text-left">
+                                <button type='button' className='inline-block w-full px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug rounded uppercase shadow-md
+                                    hover:bg-blue-700 hover:shadow-lg
+                                     focus:shadow-lg focus:outline-none focus:ring-0 
+                                    active:bg-yellow-800 active:shadow-lg transition duration-150 ease-in-out'>
                                     Login
                                 </button>
-                                <p>Don't have an account? <a href="#">Register</a></p>
+                                <p className="text-sm font-semibold mt-2 pt-1 mb-0">Don't have an account? <a className='text-red-600 hover:text-red-700 ' href="#">Register</a></p>
                             </div>
                         </form>
                     </div>
 
-                
+
                 </div>
             </section>
+        </div>
+    )
+}
+
+export const InputBox = (props) => {
+    return (
+        <div className="mb-6">
+            <label className="text-xl">{props.label}</label>
+            <input
+                type={props.type}
+                placeholder={props.label}
+                className='form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-gray-300 rounded transition ease-in-out m-0 
+                focus:outline-none focus:text-gray-700 focus:bg-white focus:border-green-500'
+            />
         </div>
     )
 }
