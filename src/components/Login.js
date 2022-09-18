@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { login } from '../api/auth'
 import { errorMessageFor } from '../api/utils'
 import { DangerAlert } from './Alerts'
 import { InputBox } from './InputBox'
 
 export const Login = () => {
+    const navigate = useNavigate()
     const [form, setForm] = useState({
         email: '',
         password: ''
@@ -14,14 +16,15 @@ export const Login = () => {
     const handleSubmit = async e => {
         e.preventDefault()
         try {
+            setError('')
             await login(form)
+            navigate('/')
         }
         catch (e) {
             setError(errorMessageFor(e))
         }
     }
 
-   
     const onChangeField = e => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }

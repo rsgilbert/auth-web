@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { confirm } from '../api/auth'
 import { errorMessageFor } from '../api/utils'
 import { DangerAlert } from './Alerts'
 import { InputBox } from './InputBox'
+import {useQuery} from './hooks'
+import { useNavigate } from 'react-router-dom'
 
 export const Confirm = () => {
+    const navigate = useNavigate()
+
+    const query = useQuery()
     const [form, setForm] = useState({
-        email: '',
+        email: query.get('email'),
         confirmation_code: ''
     })
     const [error, setError] = useState('')
@@ -14,7 +19,9 @@ export const Confirm = () => {
     const handleSubmit = async e => {
         e.preventDefault()
         try {
+            setError('')
             await confirm(form)
+            navigate('/login')
         }
         catch (e) {
             setError(errorMessageFor(e))

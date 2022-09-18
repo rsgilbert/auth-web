@@ -5,6 +5,7 @@ export const InputBox = (props) => {
         <div className="mb-6">
             <label className="text-xl">{props.label}</label>
             <input
+                value={props.value}
                 name={props.name}
                 type={props.type}
                 placeholder={props.label}

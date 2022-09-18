@@ -22,7 +22,8 @@ export const login = async credentials => {
     const _response = await axios({
         method: 'post',
         url: `${authApi}/auth/login`,
-        data: credentials
+        data: credentials,
+        withCredentials: true
     })
 }
 
@@ -36,4 +37,27 @@ export const signup = async credentials => {
         url: `${authApi}/auth/signup`,
         data: credentials
     })
+}
+
+/**
+ * Returns logged in status of user
+ * If we are able to fetch user details of user, then we are logged in,
+ * else we are logged out
+ * @returns {Promise<LoggedInStatus>}
+ */
+export const getLoggedInStatus = async () => {
+    try {
+        const _response = await axios({
+            method: 'get',
+            url: `${authApi}/user`,
+            // withCredentials must be set to true to allow cookies in cross-origin requests and responses
+            // see: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+            withCredentials: true 
+        })
+        console.log(_response.data)
+        return 'logged_in'
+    }
+    catch(e) {
+        return 'logged_out'
+    }
 }

@@ -10,6 +10,8 @@ import { isLoggedIn } from './api/utils';
 import { Signup } from './components/Signup';
 import { Confirm } from './components/Confirm'
 import { Login } from './components/Login.js';
+import { useState, useEffect } from 'react'
+import { getLoggedInStatus } from './api/auth';
 
 function LoginApp() {
     return (
@@ -19,7 +21,7 @@ function LoginApp() {
                     <Route path="/login" element={<Login />} />
                     <Route path='/signup' element={<Signup />} />
                     <Route path='/confirm' element={<Confirm />} />
-                    <Route path='*' element={<Navigate to='/login'/>} />
+                    <Route path='*' element={<Navigate to='/login' />} />
                 </Routes>
 
             </Router>
@@ -41,11 +43,28 @@ function AuthenticatedApp() {
     );
 }
 
+
 function App() {
-    if (isLoggedIn()) return (
+    /**@type {[LoggedInStatus,any]} */
+    const [loggedInStatus, setLoggedInStatus] = useState('loading')
+    // const [isLoggedInCookie, setIsLoggedInCookie] = useCookies
+
+    useEffect(()=> {
+        (async ()=>{
+            setLoggedInStatus(await getLoggedInStatus())
+        })()
+    },[])
+    if (loggedInStatus === 'logged_in') return (
         <AuthenticatedApp />
     )
-    else return (<LoginApp />)
+    if (loggedInStatus === 'logged_out')
+        return (<LoginApp />)
+
+    return (
+        <div>
+            <p>Loading ...</p>
+        </div>
+    )
 }
 
 export default App;
