@@ -12,6 +12,8 @@ import { Confirm } from './components/Confirm'
 import { Login } from './components/Login.js';
 import { useState, useEffect } from 'react'
 import { getLoggedInStatus } from './api/auth';
+import { useCookies } from 'react-cookie'
+
 
 function LoginApp() {
     return (
@@ -45,26 +47,20 @@ function AuthenticatedApp() {
 
 
 function App() {
-    /**@type {[LoggedInStatus,any]} */
-    const [loggedInStatus, setLoggedInStatus] = useState('loading')
-    // const [isLoggedInCookie, setIsLoggedInCookie] = useCookies
-
-    useEffect(()=> {
-        (async ()=>{
-            setLoggedInStatus(await getLoggedInStatus())
+    const [cookies, setCookie] = useCookies(['loggedInStatus'])
+    /** @type {LoggedInStatus} */
+    const loggedInStatus = cookies.loggedInStatus
+    useEffect(() => {
+        (async () => {
+            console.log(await getLoggedInStatus())
+            setCookie('loggedInStatus', await getLoggedInStatus())
         })()
-    },[])
+    }, [])
+
     if (loggedInStatus === 'logged_in') return (
         <AuthenticatedApp />
     )
-    if (loggedInStatus === 'logged_out')
-        return (<LoginApp />)
-
-    return (
-        <div>
-            <p>Loading ...</p>
-        </div>
-    )
+    else return (<LoginApp />)
 }
 
 export default App;

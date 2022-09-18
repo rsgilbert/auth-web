@@ -63,7 +63,7 @@ export const Signup = () => {
                                     active:bg-yellow-800 active:shadow-lg transition duration-150 ease-in-out'>
                                     Signup
                                 </button>
-                                <p className="text-sm font-semibold mt-2 pt-1 mb-0">Have an account? <a className='text-red-600 hover:text-red-700 ' href="#">Login</a></p>
+                                <p className="text-sm font-semibold mt-2 pt-1 mb-0">Have an account? <a className='text-red-600 hover:text-red-700 ' href="/login">Login</a></p>
                             </div>
                         </form>
                     </div>

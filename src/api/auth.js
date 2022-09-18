@@ -10,7 +10,8 @@ export const confirm = async credentials => {
     const _response = await axios({
         method: 'post',
         url: `${authApi}/auth/confirm`,
-        data: credentials
+        data: credentials,
+        withCredentials: true
     })
 }
 
@@ -35,9 +36,20 @@ export const signup = async credentials => {
     const _response = await axios({
         method: 'post',
         url: `${authApi}/auth/signup`,
-        data: credentials
+        data: credentials,
+        withCredentials: true
     })
 }
+
+
+export const logout = async () => {
+    const _response = await axios({
+        method: 'post',
+        url: `${authApi}/auth/logout`,
+        withCredentials: true
+    })
+}
+
 
 /**
  * Returns logged in status of user

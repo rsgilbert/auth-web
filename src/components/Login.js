@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { login } from '../api/auth'
 import { errorMessageFor } from '../api/utils'
 import { DangerAlert } from './Alerts'
 import { InputBox } from './InputBox'
+import { useCookies } from 'react-cookie'
 
 export const Login = () => {
-    const navigate = useNavigate()
+    const [cookies, setCookie] = useCookies(['loggedInStatus'])
     const [form, setForm] = useState({
         email: '',
         password: ''
@@ -18,7 +18,7 @@ export const Login = () => {
         try {
             setError('')
             await login(form)
-            navigate('/')
+            setCookie('loggedInStatus', 'logged_in')
         }
         catch (e) {
             setError(errorMessageFor(e))
@@ -66,7 +66,8 @@ export const Login = () => {
                                     active:bg-yellow-800 active:shadow-lg transition duration-150 ease-in-out'>
                                     Login
                                 </button>
-                                <p className="text-sm font-semibold mt-2 pt-1 mb-0">Don't have an account? <a className='text-red-600 hover:text-red-700 ' href="#">Signup</a></p>
+                                <p className="text-sm font-semibold mt-2 pt-1 mb-0"
+                                >Don't have an account? <a className='text-red-600 hover:text-red-700 ' href="/signup">Signup</a></p>
                             </div>
                         </form>
                     </div>
